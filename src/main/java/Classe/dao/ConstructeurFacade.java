@@ -1,0 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Classe.dao;
+
+import Classe.entity.Constructeur;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author Justin
+ */
+@Stateless
+public class ConstructeurFacade extends AbstractFacade<Constructeur> {
+
+    @PersistenceContext(unitName = "company_ProjetTUT_war_1.0PU")
+    private EntityManager em;
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public ConstructeurFacade() {
+        super(Constructeur.class);
+    }
+    
+}

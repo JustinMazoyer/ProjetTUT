@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -35,17 +36,22 @@ public class SoumettreDispositif {
     @Inject
     BindingResult formValidationErrors;
 
-    @POST
+    
+	@GET
+	public void show() {
+		models.put("dispositif", facadeP.findAll());
+	}
+        
+        @POST
     @ValidateOnExecution(type = ExecutableType.ALL)
-    public void create(@Valid @BeanParam DispositifForm formData) {
-        if (!formValidationErrors.isFailed()) { 
-            Dispositif nouvelle = new Dispositif();
-            nouvelle.setId(formData.getId());
-            nouvelle.setDescription(formData.getDescription());
-
-
-        }
-        models.put("validationErrors", formValidationErrors);
-        models.put("dispositif", facadeP.findAll());
+    public void edit(@Valid @BeanParam DispositifForm formData) {
+        Dispositif c =new Dispositif();
+        c.setId(formData.getId());
+        c.setNom(formData.getNom());
+        c.setDescription(formData.getDescription());
+        c.setUrlPhoto(formData.getUrlPhoto());
+        facadeP.create(c);
+        models.put("dispositif", c);
     }
+
 }

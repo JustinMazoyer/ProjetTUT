@@ -12,19 +12,39 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST"> <%-- L'action par défaut est de revenir à l'URL du contrôleur --%>
-			<input name="id" placeholder="Libellé de la catégorie"><br>
-			<ul> <%-- On montre les erreurs de saisie éventuelles --%>
-				<c:forEach var="error" items="${validationErrors.getErrors('id')}">
-					<li><span style="color: red;">${mvc.encoders.html(error.message)}</span></li>
-				</c:forEach>
-			</ul>
-			
-			<input name="description" placeholder="Description de la catégorie"><br>
-			<ul> <%-- On montre les erreurs de saisie éventuelles --%>
-				<c:forEach var="error" items="${validationErrors.getErrors('description')}">
-					<li><span style="color: red;">${mvc.encoders.html(error.message)}</span></li>
-				</c:forEach>
-			</ul>
+          <body>
+        <h1>Demande d'ajout d'un nouveau dispositif</h1>
+        <form method="POST">
+            ID: <input name="id" placeholder="id de l'appareil"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+                <c:forEach var="error" items="${validationErrors.getErrors('id')}">
+                    <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+                    </c:forEach>
+            </br>
+            Nom: <input name="nom" placeholder="Nom du dispositif"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+                <c:forEach var="error" items="${validationErrors.getErrors('nom')}">
+                    <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+                    </c:forEach>
+            </br>
+            Description: <input name="description" placeholder="Description du dispositif"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+                <c:forEach var="error" items="${validationErrors.getErrors('description:')}">
+                    <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+                    </c:forEach>
+            </br>
+            urlPhoto: <input name="urlPhoto" placeholder="urlPhoto du dispositif"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+                <c:forEach var="error" items="${validationErrors.getErrors('urlPhoto')}">
+                    <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+                    </c:forEach>
+            </br>
+            <input type="submit" value="Envoyer">
+        </form>
+        <c:if test="${not empty databaseErrorMessage}">
+            <span style="color: red;">${databaseErrorMessage}</span>
+        </c:if>
+        <hr>
+        <a href="../index.html">Retour accueil</a>
     </body>
 </html>

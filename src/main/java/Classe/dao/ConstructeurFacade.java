@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class ConstructeurFacade extends AbstractFacade<Constructeur> {
 
-    @PersistenceContext(unitName = "company_ProjetTUT_war_1.0PU")
+    @PersistenceContext(unitName = "test")
     private EntityManager em;
 
     @Override

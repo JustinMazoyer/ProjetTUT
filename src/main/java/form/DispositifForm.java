@@ -7,6 +7,7 @@ package form;
 
 import java.io.Serializable;
 import javax.mvc.binding.MvcBinding;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
@@ -21,7 +22,7 @@ public class DispositifForm implements Serializable {
     @MvcBinding
     @FormParam("id")
     //@NotEmpty
-    @Size(min = 1, max = 128)
+    @Min(1)
     private Integer id;
 
     @MvcBinding

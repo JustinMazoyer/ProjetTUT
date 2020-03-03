@@ -15,12 +15,7 @@
           <body>
         <h1>Demande d'ajout d'un nouveau dispositif</h1>
         <form method="POST">
-            ID: <input name="id" placeholder="id de l'appareil"></br>
-            <br> <%-- On montre les erreurs de saisie éventuelles --%>
-                <c:forEach var="error" items="${validationErrors.getErrors('id')}">
-                    <span style="color: red;">${mvc.encoders.html(error.message)}</span>
-                    </c:forEach>
-            </br>
+
             Nom: <input name="nom" placeholder="Nom du dispositif"></br>
             <br> <%-- On montre les erreurs de saisie éventuelles --%>
                 <c:forEach var="error" items="${validationErrors.getErrors('nom')}">

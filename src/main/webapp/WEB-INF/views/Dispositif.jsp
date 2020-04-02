@@ -13,7 +13,7 @@
 	<h1>Liste des dispositifs</h1>
 	
 	<table border='1'>
-            <tr><th>Nom</th><th>Description</th><th>Voir les modèles</th></tr>
+            <tr><th>Nom</th><th>Description</th></tr>
 		
 		<c:forEach var="dispositif" items="${dispositifs}">
 			<tr>
@@ -21,11 +21,13 @@
 				
 				<td>${mvc.encoders.html(dispositif.description)}</td>
 				
-                                <td><input type="submit" value="Voir les modèles"></td>
+                               
 			</tr>
 		</c:forEach>
 	</table>
-
+         <a href="Modele">Pour voir tous les modeles en fonction des dispositifs cliquez ici</a>
+         <hr>
+<a href="../index.html">Retour accueil</a>
 </body>
 
 </html>

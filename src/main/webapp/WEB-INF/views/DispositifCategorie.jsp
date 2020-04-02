@@ -48,5 +48,8 @@
             </tr>
         </c:forEach>
     </table>
+    <hr>
+    <a href="../index.html">Retour accueil</a>
 </body>
+
 </html>

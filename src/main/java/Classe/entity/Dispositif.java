@@ -43,12 +43,13 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Dispositif implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     @Min(1)
     private Integer id;
+    @Id
     @Size(max = 128)
     @Column(name = "NOM")
     private String nom;

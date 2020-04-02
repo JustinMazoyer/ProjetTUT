@@ -13,13 +13,13 @@
     <body>
         <h1>Choisissez un dispositif pour voir les différents modèles</h1>
         <form> 	
-            <select name='id' onchange='this.form.submit()'>
+            <select name='nom' onchange='this.form.submit()'>
 
                 <c:forEach var="dispositif" items="${dispositifs}">
 
-                    <option value='${dispositif.id}'
+                    <option value='${dispositif.nom}'
 
-                            <c:if test="${dispositif.id eq selected.id}">
+                            <c:if test="${dispositif.nom eq selected.nom}">
                                 selected
                             </c:if>
                             >

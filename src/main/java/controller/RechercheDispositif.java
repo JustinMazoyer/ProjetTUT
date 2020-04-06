@@ -50,8 +50,11 @@ public class RechercheDispositif {
     public String login(@Valid @BeanParam DispositifForm formData) {
         try {
             Dispositif nomdispositif = dispositif.find(formData.getNom());
+            if(nomdispositif.getId().equals(null)){
+                models.put("databaseErrorMessage", "Ce dispositif n'existe pas");
+            }else{
             return "redirect:/Dispositif";
-
+            }
         } catch (Exception e) {
             models.put("databaseErrorMessage", "Ce dispositif n'existe pas");
         }

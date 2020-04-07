@@ -33,20 +33,18 @@
             <c:forEach var="error" items="${validationErrors.getErrors('urlPhoto')}">
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
             </c:forEach>
-            </br>
-            <form> 
-                <select name="id" onchange='this.form.submit()'>
-                    <c:forEach var="categorie" items="${categories}">
-                        <option value='${categorie.id}' 
-                                <c:if test="${categorie.id eq selected.id}">
-                                    selected
-                                </c:if>
-                                > 
-                            ${categorie.nom}
-                        </option>
-                    </c:forEach>
-                </select>
-            </form>
+            </br> 
+            <select name="id" onchange='this.form()'>
+                <c:forEach var="categorie" items="${categories}">
+                    <option value='${categorie.id}' 
+                            <c:if test="${categorie.id eq selected.id}">
+                                selected
+                            </c:if>
+                            > 
+                        ${categorie.nom}
+                    </option>
+                </c:forEach>
+            </select>
             <input type="submit" value="Envoyer">
         </form>
         <c:if test="${not empty databaseErrorMessage}">

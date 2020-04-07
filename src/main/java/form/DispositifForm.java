@@ -39,7 +39,7 @@ public class DispositifForm implements Serializable {
     
     
     @MvcBinding
-    @FormParam("urlphoto")
+    @FormParam("urlPhoto")
     //@NotEmpty
     @Size(min = 1, max = 255)
     private String urlPhoto;

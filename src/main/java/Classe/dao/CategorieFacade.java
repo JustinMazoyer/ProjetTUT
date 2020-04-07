@@ -6,6 +6,7 @@
 package Classe.dao;
 
 import Classe.entity.Categorie;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +17,6 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CategorieFacade extends AbstractFacade<Categorie> {
-
     @PersistenceContext(unitName = "test")
     private EntityManager em;
 
@@ -28,5 +28,4 @@ public class CategorieFacade extends AbstractFacade<Categorie> {
     public CategorieFacade() {
         super(Categorie.class);
     }
-    
 }

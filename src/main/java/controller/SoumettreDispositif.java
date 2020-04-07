@@ -10,6 +10,7 @@ import Classe.dao.DispositifFacade;
 import Classe.entity.Categorie;
 import Classe.entity.Dispositif;
 import form.DispositifForm;
+import java.sql.PreparedStatement;
 import java.util.List;
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -48,11 +50,9 @@ public class SoumettreDispositif {
         final List<Categorie> touteslesCategories = facade.findAll();
 
         Categorie categorieChoisie;
-        if (codeCategorie != null) 
-        {
+        if (codeCategorie != null) {
             categorieChoisie = facade.find(codeCategorie);
-        } else 
-        {
+        } else {
             categorieChoisie = touteslesCategories.get(0);
         }
 
@@ -62,14 +62,12 @@ public class SoumettreDispositif {
 
     @POST
     @ValidateOnExecution(type = ExecutableType.ALL)
-    public void edit(@Valid @BeanParam DispositifForm formData,@QueryParam("id") Integer codeCategorie) {
+    public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie) {
         final List<Categorie> touteslesCategories = facade.findAll();
         Categorie categorieChoisie;
-        if (codeCategorie != null) 
-        {
+        if (codeCategorie != null) {
             categorieChoisie = facade.find(codeCategorie);
-        } else 
-        {
+        } else {
             categorieChoisie = touteslesCategories.get(0);
         }
         Dispositif c = new Dispositif();
@@ -82,5 +80,4 @@ public class SoumettreDispositif {
         models.put("categories", touteslesCategories);
         models.put("selected", categorieChoisie);
     }
-
 }

@@ -11,6 +11,8 @@ import Classe.entity.Categorie;
 import Classe.entity.Dispositif;
 import form.DispositifForm;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -44,11 +46,15 @@ public class SoumettreDispositif {
     BindingResult formValidationErrors;
     @Inject
     CategorieFacade facade;
+    @Inject
+    Categorie categorie;
+    public Collection<Dispositif> dispositif;
+    public Collection<Categorie> catego;
+
 
     @GET
     public void produitsParCategorie(@QueryParam("id") Integer codeCategorie) {
         final List<Categorie> touteslesCategories = facade.findAll();
-
         Categorie categorieChoisie;
         if (codeCategorie != null) {
             categorieChoisie = facade.find(codeCategorie);
@@ -70,12 +76,19 @@ public class SoumettreDispositif {
         } else {
             categorieChoisie = touteslesCategories.get(0);
         }
+
         Dispositif c = new Dispositif();
         c.setId(formData.getId());
         c.setNom(formData.getNom());
         c.setDescription(formData.getDescription());
         c.setUrlPhoto(formData.getUrlPhoto());
         facadeP.create(c);
+        dispositif = new ArrayList();
+        dispositif.add(c);
+         catego = new ArrayList();
+        catego.add(categorieChoisie);
+        c.setCategorieCollection(catego);
+        categorieChoisie.setDispositifCollection(dispositif);
         models.put("dispositif", c);
         models.put("categories", touteslesCategories);
         models.put("selected", categorieChoisie);

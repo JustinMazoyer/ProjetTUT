@@ -38,59 +38,48 @@ import javax.ws.rs.QueryParam;
 @View("SoumettreDispositif.jsp")
 public class SoumettreDispositif {
 
-    @Inject
-    DispositifFacade facadeP;
-    @Inject
-    Models models;
-    @Inject
-    BindingResult formValidationErrors;
-    @Inject
-    CategorieFacade facade;
-    @Inject
-    Categorie categorie;
-    public Collection<Dispositif> dispositif;
-    public Collection<Categorie> catego;
+	@Inject
+	DispositifFacade dispositifDAO;
+	@Inject
+	CategorieFacade categorieDAO;
+	@Inject
+	Models models;
+	@Inject
+	BindingResult formValidationErrors;
 
+	@GET
+	public void montreLeFormulaire() {
+		final List<Categorie> touteslesCategories = categorieDAO.findAll();
+		Categorie categorieChoisie = touteslesCategories.get(0);
 
-    @GET
-    public void produitsParCategorie(@QueryParam("id") Integer codeCategorie) {
-        final List<Categorie> touteslesCategories = facade.findAll();
-        Categorie categorieChoisie;
-        if (codeCategorie != null) {
-            categorieChoisie = facade.find(codeCategorie);
-        } else {
-            categorieChoisie = touteslesCategories.get(0);
-        }
+		models.put("categories", touteslesCategories);
+		models.put("selected", categorieChoisie);
+	}
 
-        models.put("categories", touteslesCategories);
-        models.put("selected", categorieChoisie);
-    }
+	@POST
+	@ValidateOnExecution(type = ExecutableType.ALL)
+	public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie) {
 
-    @POST
-    @ValidateOnExecution(type = ExecutableType.ALL)
-    public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie) {
-        final List<Categorie> touteslesCategories = facade.findAll();
-        Categorie categorieChoisie;
-        if (codeCategorie != null) {
-            categorieChoisie = facade.find(codeCategorie);
-        } else {
-            categorieChoisie = touteslesCategories.get(0);
-        }
+		final List<Categorie> touteslesCategories = categorieDAO.findAll();
+		Categorie categorieChoisie;
+		if (codeCategorie != null) {
+			categorieChoisie = categorieDAO.find(codeCategorie);
+		} else {
+			categorieChoisie = touteslesCategories.get(0);
+		}
 
-        Dispositif c = new Dispositif();
-        c.setId(formData.getId());
-        c.setNom(formData.getNom());
-        c.setDescription(formData.getDescription());
-        c.setUrlPhoto(formData.getUrlPhoto());
-        facadeP.create(c);
-        dispositif = new ArrayList();
-        dispositif.add(c);
-         catego = new ArrayList();
-        catego.add(categorieChoisie);
-        c.setCategorieCollection(catego);
-        categorieChoisie.setDispositifCollection(dispositif);
-        models.put("dispositif", c);
-        models.put("categories", touteslesCategories);
-        models.put("selected", categorieChoisie);
-    }
+		Collection<Categorie> categories = new ArrayList();
+		categories.add(categorieChoisie);
+		Dispositif d = new Dispositif();
+		d.setId(formData.getId());
+		d.setNom(formData.getNom());
+		d.setDescription(formData.getDescription());
+		d.setUrlPhoto(formData.getUrlPhoto());
+		d.setCategorieCollection(categories);
+		dispositifDAO.create(d);
+
+		models.put("dispositif", d);
+		models.put("categories", touteslesCategories);
+		models.put("selected", categorieChoisie);
+	}
 }

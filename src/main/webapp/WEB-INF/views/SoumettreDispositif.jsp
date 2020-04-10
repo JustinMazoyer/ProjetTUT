@@ -34,15 +34,9 @@
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
             </c:forEach>
             </br> 
-            <select name="id" onchange='this.form()'>
+            <select name="id">
                 <c:forEach var="categorie" items="${categories}">
-                    <option value='${categorie.id}' 
-                            <c:if test="${categorie.id eq selected.id}">
-                                selected
-                            </c:if>
-                            > 
-                        ${categorie.nom}
-                    </option>
+                    <option value='${categorie.id}'>${categorie.nom}</option>
                 </c:forEach>
             </select>
             <input type="submit" value="Envoyer">

@@ -48,8 +48,7 @@ public class SoumettreDispositif {
     PathologieFacade pathologieDAO;
     @Inject
     Models models;
-    @Inject
-    BindingResult formValidationErrors;
+
 
     @GET
     public void montreLeFormulaire() {
@@ -66,8 +65,8 @@ public class SoumettreDispositif {
 
     @POST
     @ValidateOnExecution(type = ExecutableType.ALL)
-    public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie, @FormParam("id1") Integer codePathologie) {
-
+    public String edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie, @FormParam("id1") Integer codePathologie) {
+       
         final List<Categorie> touteslesCategories = categorieDAO.findAll();
         Categorie categorieChoisie;
         if (codeCategorie != null) {
@@ -83,7 +82,6 @@ public class SoumettreDispositif {
         } else {
             pathologieChoisie = touteslesPathologie.get(0);
         }
-
         Collection<Categorie> categories = new ArrayList();
         categories.add(categorieChoisie);
         Collection<Pathologie> pathologies = new ArrayList();
@@ -96,11 +94,11 @@ public class SoumettreDispositif {
         d.setCategorieCollection(categories);
         d.setPathologieCollection(pathologies);
         dispositifDAO.create(d);
-
         models.put("dispositif", d);
         models.put("categories", touteslesCategories);
         models.put("selected", categorieChoisie);
         models.put("pathologies", touteslesPathologie);
         models.put("select", pathologieChoisie);
-    }
+        return "redirect:../index.html";
+}
 }

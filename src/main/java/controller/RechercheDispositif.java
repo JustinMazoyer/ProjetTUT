@@ -51,7 +51,6 @@ public class RechercheDispositif {
         try {
             Dispositif nomdispositif = dispositif.find(formData.getNom());
             if(nomdispositif.getId().equals(null)){
-                models.put("databaseErrorMessage", "Ce dispositif n'existe pas");
             }else{
             return "redirect:/Dispositif";
             }

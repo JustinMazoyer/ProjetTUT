@@ -43,7 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Dispositif implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
@@ -66,8 +65,13 @@ public class Dispositif implements Serializable {
         @JoinColumn(name = "ID_1", referencedColumnName = "ID")})
     @ManyToMany
     private Collection<Pathologie> pathologieCollection;
-    @ManyToMany(mappedBy = "dispositifCollection")
+    
+    @JoinTable(name = "APPARTIENT", joinColumns = {
+        @JoinColumn(name = "ID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_1", referencedColumnName = "ID")})
+    @ManyToMany
     private Collection<Categorie> categorieCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPossede")
     private Collection<Modele> modeleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dispositif")

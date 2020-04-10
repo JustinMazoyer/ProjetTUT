@@ -7,8 +7,10 @@ package controller;
 
 import Classe.dao.CategorieFacade;
 import Classe.dao.DispositifFacade;
+import Classe.dao.PathologieFacade;
 import Classe.entity.Categorie;
 import Classe.entity.Dispositif;
+import Classe.entity.Pathologie;
 import form.DispositifForm;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -38,48 +40,67 @@ import javax.ws.rs.QueryParam;
 @View("SoumettreDispositif.jsp")
 public class SoumettreDispositif {
 
-	@Inject
-	DispositifFacade dispositifDAO;
-	@Inject
-	CategorieFacade categorieDAO;
-	@Inject
-	Models models;
-	@Inject
-	BindingResult formValidationErrors;
+    @Inject
+    DispositifFacade dispositifDAO;
+    @Inject
+    CategorieFacade categorieDAO;
+    @Inject
+    PathologieFacade pathologieDAO;
+    @Inject
+    Models models;
+    @Inject
+    BindingResult formValidationErrors;
 
-	@GET
-	public void montreLeFormulaire() {
-		final List<Categorie> touteslesCategories = categorieDAO.findAll();
-		Categorie categorieChoisie = touteslesCategories.get(0);
+    @GET
+    public void montreLeFormulaire() {
+        final List<Categorie> touteslesCategories = categorieDAO.findAll();
+        Categorie categorieChoisie = touteslesCategories.get(0);
+        final List<Pathologie> touteslesPathologie = pathologieDAO.findAll();
+        Pathologie pathologieChoisie = touteslesPathologie.get(0);
 
-		models.put("categories", touteslesCategories);
-		models.put("selected", categorieChoisie);
-	}
+        models.put("categories", touteslesCategories);
+        models.put("selected", categorieChoisie);
+        models.put("pathologies", touteslesPathologie);
+        models.put("select", pathologieChoisie);
+    }
 
-	@POST
-	@ValidateOnExecution(type = ExecutableType.ALL)
-	public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie) {
+    @POST
+    @ValidateOnExecution(type = ExecutableType.ALL)
+    public void edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie, @FormParam("id1") Integer codePathologie) {
 
-		final List<Categorie> touteslesCategories = categorieDAO.findAll();
-		Categorie categorieChoisie;
-		if (codeCategorie != null) {
-			categorieChoisie = categorieDAO.find(codeCategorie);
-		} else {
-			categorieChoisie = touteslesCategories.get(0);
-		}
+        final List<Categorie> touteslesCategories = categorieDAO.findAll();
+        Categorie categorieChoisie;
+        if (codeCategorie != null) {
+            categorieChoisie = categorieDAO.find(codeCategorie);
+        } else {
+            categorieChoisie = touteslesCategories.get(0);
+        }
+        
+        final List<Pathologie> touteslesPathologie = pathologieDAO.findAll();
+        Pathologie pathologieChoisie;
+        if (codePathologie != null) {
+            pathologieChoisie = pathologieDAO.find(codePathologie);
+        } else {
+            pathologieChoisie = touteslesPathologie.get(0);
+        }
 
-		Collection<Categorie> categories = new ArrayList();
-		categories.add(categorieChoisie);
-		Dispositif d = new Dispositif();
-		d.setId(formData.getId());
-		d.setNom(formData.getNom());
-		d.setDescription(formData.getDescription());
-		d.setUrlPhoto(formData.getUrlPhoto());
-		d.setCategorieCollection(categories);
-		dispositifDAO.create(d);
+        Collection<Categorie> categories = new ArrayList();
+        categories.add(categorieChoisie);
+        Collection<Pathologie> pathologies = new ArrayList();
+        pathologies.add(pathologieChoisie);
+        Dispositif d = new Dispositif();
+        d.setId(formData.getId());
+        d.setNom(formData.getNom());
+        d.setDescription(formData.getDescription());
+        d.setUrlPhoto(formData.getUrlPhoto());
+        d.setCategorieCollection(categories);
+        d.setPathologieCollection(pathologies);
+        dispositifDAO.create(d);
 
-		models.put("dispositif", d);
-		models.put("categories", touteslesCategories);
-		models.put("selected", categorieChoisie);
-	}
+        models.put("dispositif", d);
+        models.put("categories", touteslesCategories);
+        models.put("selected", categorieChoisie);
+        models.put("pathologies", touteslesPathologie);
+        models.put("select", pathologieChoisie);
+    }
 }

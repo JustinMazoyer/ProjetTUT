@@ -39,6 +39,13 @@
                     <option value='${categorie.id}'>${categorie.nom}</option>
                 </c:forEach>
             </select>
+            <br>
+            <select name="id1">
+                <c:forEach var="pathologie" items="${pathologies}">
+                    <option value='${pathologie.id}'>${pathologie.nom}</option>
+                </c:forEach>
+            </select>
+            <br>
             <input type="submit" value="Envoyer">
         </form>
         <c:if test="${not empty databaseErrorMessage}">

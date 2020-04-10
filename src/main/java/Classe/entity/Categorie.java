@@ -47,12 +47,8 @@ public class Categorie implements Serializable {
     @Size(max = 32)
     @Column(name = "NOM")
     private String nom;
-    @JoinTable(name = "APPARTIENT", joinColumns = {
-        @JoinColumn(name = "ID_1", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID", referencedColumnName = "ID")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "categorieCollection")
     private Collection<Dispositif> dispositifCollection;
-
     public Categorie() {
     }
 

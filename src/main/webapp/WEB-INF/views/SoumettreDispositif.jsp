@@ -30,7 +30,7 @@
             </br>
             urlPhoto: <input name="urlPhoto" placeholder="urlPhoto du dispositif"></br>
             <br> <%-- On montre les erreurs de saisie éventuelles --%>
-            <c:forEach var="error" items="${validationErrors.getErrors('description')}">
+            <c:forEach var="error" items="${validationErrors.getErrors('urlPhoto')}">
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
             </c:forEach>
             </br> 
@@ -40,12 +40,32 @@
                 </c:forEach>
             </select>
             <br>
+            <br>
             <select name="id1">
                 <c:forEach var="pathologie" items="${pathologies}">
                     <option value='${pathologie.id}'>${pathologie.nom}</option>
                 </c:forEach>
             </select>
             <br>
+            Modèle: <input name="nomM" placeholder="Modèle du dispositif"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+            <c:forEach var="error" items="${validationErrors.getErrors('nomM')}">
+                <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+            </c:forEach>
+            </br> 
+            Description du Modèle: <input name="descriptionM" placeholder="Description"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+            <c:forEach var="error" items="${validationErrors.getErrors('descriptionM')}">
+                <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+            </c:forEach>
+            </br> 
+             </br> 
+            Référence: <input name="lienRef" placeholder="Référence"></br>
+            <br> <%-- On montre les erreurs de saisie éventuelles --%>
+            <c:forEach var="error" items="${validationErrors.getErrors('lienRef')}">
+                <span style="color: red;">${mvc.encoders.html(error.message)}</span>
+            </c:forEach>
+            </br> 
             <input type="submit" value="Envoyer">
         </form>
         <c:if test="${not empty databaseErrorMessage}">

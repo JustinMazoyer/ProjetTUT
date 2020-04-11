@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class DispositifFacade extends AbstractFacade<Dispositif> {
 
-    @PersistenceContext(unitName = "test")
+    @PersistenceContext(unitName = "automesure")
     private EntityManager em;
 
     @Override

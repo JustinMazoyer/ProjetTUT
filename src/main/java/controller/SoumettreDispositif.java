@@ -8,10 +8,15 @@ package controller;
 import Classe.dao.CategorieFacade;
 import Classe.dao.DispositifFacade;
 import Classe.dao.PathologieFacade;
+import Classe.dao.ReferenceFacade;
 import Classe.entity.Categorie;
 import Classe.entity.Dispositif;
+import Classe.entity.Modele;
 import Classe.entity.Pathologie;
+import Classe.entity.Reference;
 import form.DispositifForm;
+import form.ModeleForm;
+import form.ReferenceForm;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +52,8 @@ public class SoumettreDispositif {
     @Inject
     PathologieFacade pathologieDAO;
     @Inject
+    ReferenceFacade referenceDAO;
+    @Inject
     Models models;
 
 
@@ -65,7 +72,7 @@ public class SoumettreDispositif {
 
     @POST
     @ValidateOnExecution(type = ExecutableType.ALL)
-    public String edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie, @FormParam("id1") Integer codePathologie) {
+    public String edit(@Valid @BeanParam DispositifForm formData, @FormParam("id") Integer codeCategorie, @FormParam("id1") Integer codePathologie, @BeanParam ModeleForm form,@BeanParam ReferenceForm data) {
        
         final List<Categorie> touteslesCategories = categorieDAO.findAll();
         Categorie categorieChoisie;
@@ -82,17 +89,37 @@ public class SoumettreDispositif {
         } else {
             pathologieChoisie = touteslesPathologie.get(0);
         }
+        Collection<Reference> references = new ArrayList();
         Collection<Categorie> categories = new ArrayList();
-        categories.add(categorieChoisie);
         Collection<Pathologie> pathologies = new ArrayList();
+        Collection<Modele> modeles = new ArrayList();
         pathologies.add(pathologieChoisie);
+        categories.add(categorieChoisie);
+        
         Dispositif d = new Dispositif();
+        Reference r = new Reference();
+        Modele m = new Modele();
+        
+        r.setId(formData.getId());
+        r.setLien(data.getLien());
+        references.add(r);
+        
+        m.setId(form.getId());
+        m.setNom(form.getNom());
+        m.setDescription(form.getDescription());
+        m.setIdPossede(d);
+        modeles.add(m);
+        
         d.setId(formData.getId());
         d.setNom(formData.getNom());
         d.setDescription(formData.getDescription());
         d.setUrlPhoto(formData.getUrlPhoto());
         d.setCategorieCollection(categories);
-        d.setPathologieCollection(pathologies);
+        d.setPathologieCollection(pathologies);        
+        d.setModeleCollection(modeles);
+        d.setReferenceCollection(references);
+        
+        referenceDAO.create(r);
         dispositifDAO.create(d);
         models.put("dispositif", d);
         models.put("categories", touteslesCategories);

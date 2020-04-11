@@ -51,8 +51,6 @@ public class Pathologie implements Serializable {
     private String description;
     @ManyToMany(mappedBy = "pathologieCollection")
     private Collection<Dispositif> dispositifCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pathologie")
-    private Collection<Mention> mentionCollection;
 
     public Pathologie() {
     }
@@ -92,15 +90,6 @@ public class Pathologie implements Serializable {
 
     public void setDispositifCollection(Collection<Dispositif> dispositifCollection) {
         this.dispositifCollection = dispositifCollection;
-    }
-
-    @XmlTransient
-    public Collection<Mention> getMentionCollection() {
-        return mentionCollection;
-    }
-
-    public void setMentionCollection(Collection<Mention> mentionCollection) {
-        this.mentionCollection = mentionCollection;
     }
 
     @Override

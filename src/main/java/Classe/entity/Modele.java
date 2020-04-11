@@ -46,9 +46,6 @@ public class Modele implements Serializable {
     @Size(max = 255)
     @Column(name = "DESCRIPTION")
     private String description;
-    @JoinColumn(name = "ID_CREE", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Constructeur idCree;
     @JoinColumn(name = "ID_POSSEDE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Dispositif idPossede;
@@ -82,14 +79,6 @@ public class Modele implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Constructeur getIdCree() {
-        return idCree;
-    }
-
-    public void setIdCree(Constructeur idCree) {
-        this.idCree = idCree;
     }
 
     public Dispositif getIdPossede() {

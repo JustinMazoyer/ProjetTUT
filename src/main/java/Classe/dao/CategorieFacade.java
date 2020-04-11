@@ -18,7 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class CategorieFacade extends AbstractFacade<Categorie> {
-    @PersistenceContext(unitName = "test")
+    @PersistenceContext(unitName = "automesure")
     private EntityManager em;
 
     @Override

@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Dispositif.findByUrlPhoto", query = "SELECT d FROM Dispositif d WHERE d.urlPhoto = :urlPhoto")
     , @NamedQuery(name = "Dispositif.findByValide", query = "SELECT d FROM Dispositif d WHERE d.valide = :valide")})
 public class Dispositif implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -72,10 +72,14 @@ public class Dispositif implements Serializable {
     @ManyToMany
     private Collection<Categorie> categorieCollection;
     
+     @JoinTable(name = "REFERE", joinColumns = {
+        @JoinColumn(name = "ID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_REFERE", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Reference> referenceCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPossede")
     private Collection<Modele> modeleCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dispositif")
-    private Collection<Mention> mentionCollection;
 
     public Dispositif() {
     }
@@ -150,14 +154,13 @@ public class Dispositif implements Serializable {
     public void setModeleCollection(Collection<Modele> modeleCollection) {
         this.modeleCollection = modeleCollection;
     }
-
-    @XmlTransient
-    public Collection<Mention> getMentionCollection() {
-        return mentionCollection;
+        @XmlTransient
+    public Collection<Reference> getReferenceCollection() {
+        return referenceCollection;
     }
 
-    public void setMentionCollection(Collection<Mention> mentionCollection) {
-        this.mentionCollection = mentionCollection;
+    public void setReferenceCollection(Collection<Reference> referenceCollection) {
+        this.referenceCollection = referenceCollection;
     }
 
     @Override

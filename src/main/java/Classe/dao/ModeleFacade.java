@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class ModeleFacade extends AbstractFacade<Modele> {
 
-    @PersistenceContext(unitName = "test")
+    @PersistenceContext(unitName = "automesure")
     private EntityManager em;
 
     @Override

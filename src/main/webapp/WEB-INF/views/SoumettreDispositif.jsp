@@ -22,7 +22,7 @@
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
             </c:forEach>
             </br>
-            Description: <input name="description" placeholder="Description du dispositif" required="required"></br>
+            Description: <input name="description" placeholder="Description du dispositif"></br>
             <br> <%-- On montre les erreurs de saisie éventuelles --%>
             <c:forEach var="error" items="${validationErrors.getErrors('description')}">
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
@@ -47,7 +47,7 @@
                 </c:forEach>
             </select>
             <br>
-            Modèle: <input name="nomM" placeholder="Modèle du dispositif"></br>
+            Modèle: <input name="nomM" placeholder="Modèle du dispositif" required="required"></br>
             <br> <%-- On montre les erreurs de saisie éventuelles --%>
             <c:forEach var="error" items="${validationErrors.getErrors('nomM')}">
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>
@@ -60,7 +60,7 @@
             </c:forEach>
             </br> 
              </br> 
-            Référence: <input name="lienRef" placeholder="Référence"></br>
+            Référence: <input name="lienRef" placeholder="Référence" required="required"></br>
             <br> <%-- On montre les erreurs de saisie éventuelles --%>
             <c:forEach var="error" items="${validationErrors.getErrors('lienRef')}">
                 <span style="color: red;">${mvc.encoders.html(error.message)}</span>

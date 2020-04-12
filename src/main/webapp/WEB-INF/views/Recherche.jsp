@@ -9,7 +9,7 @@
 <html>
 
     <head>
-        <title>Connexion</title>
+        <title>Recherche</title>
     </head>
 
     <body>
@@ -32,5 +32,7 @@
                 <span style="color: red;">${databaseErrorMessage}</span>
             </c:if>
         </div>
+            <hr>
+        <a href="../index.html">Retour accueil</a>
     </body>
 </html>

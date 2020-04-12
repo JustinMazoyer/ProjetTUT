@@ -32,24 +32,24 @@ public class ModeleController {
 	Models models;
 	
     @Inject
-	DispositifFacade facadeD;
+	ModeleFacade facadeM;
     
        // @Inject
         //Modele modele;
         
 	 @GET
-    public void dispositif(@QueryParam("id") Integer idDispositif) {
+    public void modele(@QueryParam("id") Integer idModele) {
 
-        final List<Dispositif> touslesDispositifs = facadeD.findAll();
-        Dispositif dispositifChoisi;
-        if (idDispositif != null) {
-            dispositifChoisi = facadeD.find(idDispositif);
+        final List<Modele> touslesModeles = facadeM.findAll();
+        Modele modeleChoisi;
+        if (idModele != null) {
+            modeleChoisi = facadeM.find(idModele);
         } else {
-            dispositifChoisi = touslesDispositifs.get(0);
+            modeleChoisi = touslesModeles.get(0);
         }
 
-        models.put("dispositifs", touslesDispositifs);
-        models.put("selected", dispositifChoisi);
+        models.put("modeles", touslesModeles);
+        models.put("selected", modeleChoisi);
 
     }
 }

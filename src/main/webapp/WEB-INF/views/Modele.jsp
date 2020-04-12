@@ -11,42 +11,20 @@
     </head>
 
     <body>
-        <h1>Choisissez un dispositif pour voir les différents modèles</h1>
-        <form> 	
-            <select name='id' onchange='this.form.submit()'>
-
-                <c:forEach var="dispositif" items="${dispositifs}">
-
-                    <option value='${dispositif.id}'
-
-                            <c:if test="${dispositif.id eq selected.id}">
-                                selected
-                            </c:if>
-                            >
-
-                        ${dispositif.nom}
-                    </option>
-                </c:forEach>
-            </select>
-            <input type='submit'>
-        </form>
-
-        <h2>Modeles appartenant aux dispositifs ${selected.nom}</h2>
-        <table border='1'>
-            <tr><th>Nom</th><th>Description</th></tr>
-
-            <c:if test="${empty selected.modeleCollection}">
-                <tr><td colspan="3">Aucun modeles</td></tr>	
-            </c:if>
-
-            <c:forEach var="modele" items="${selected.modeleCollection}">
-                <tr>
-                    <td>${modele.nom}</td>
-                    <td>${modele.description}</td>     
-
-                </tr>
-            </c:forEach>
-        </table>
+        <h1>Liste de tous les modèles proposés</h1>
+     <table border='1'>
+		<tr><th>ID</th><th>Nom</th><th>Description</th></tr>
+		<%-- Pour chaque produit, une ligne dans la table HTML --%>
+		<c:forEach var="modele" items="${modeles}">
+			<tr>
+				<td>${modele.id}</td>
+				<%-- Le nom peut contenir des caractères spéciaux HTML ! --%>
+				<td>${mvc.encoders.html(modele.nom)}</td>
+				<%-- Exemple d'utilisation des fonctions de formatage de données de la JSTL --%>				
+				<td>${mvc.encoders.html(modele.description)}</td>
+			</tr>
+		</c:forEach>
+	</table>
         <hr>
         <a href="../index.html">Retour accueil</a>
     </body>

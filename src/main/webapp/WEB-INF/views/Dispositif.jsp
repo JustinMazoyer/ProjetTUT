@@ -25,7 +25,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-         <a href="Modele">Pour voir tous les modeles en fonction des dispositifs cliquez ici</a>
+         <a href="Modele">Pour voir tous les modeles cliquez ici</a>
          <hr>
 <a href="../index.html">Retour accueil</a>
 </body>

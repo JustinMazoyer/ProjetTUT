@@ -6,6 +6,7 @@
 package Classe.dao;
 
 import Classe.entity.Dispositif;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +29,11 @@ public class DispositifFacade extends AbstractFacade<Dispositif> {
     public DispositifFacade() {
         super(Dispositif.class);
     }
-    
+    public Dispositif ReferenceDispositif(Integer ref) {
+        List<Dispositif> liste = em.createNamedQuery("Dispositif.findById").setParameter("id", ref).getResultList();
+        if (!liste.isEmpty()) {
+            return (Dispositif) liste.get(0);
+        }
+        return null;
+    }
 }

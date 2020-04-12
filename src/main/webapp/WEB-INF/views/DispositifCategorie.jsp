@@ -32,8 +32,30 @@
         <input type='submit'>
     </form>
     <h2>Dispositifs dans la catégorie ${selected.nom}</h2>
-
+    
     <table border='1'>
+                    <tr><th>ID</th><th>Nom</th><th>Voir</th></tr>
+			<%-- Une ligne dans la table pour chaque produit --%>				
+			<c:forEach var="dispositif" items="${selected.dispositifCollection}">
+				<tr>
+					<td>${dispositif.id}</td>
+					<td>${dispositif.nom}</td> 		
+                                        <form method="POST" action="">
+                                        <input type="hidden" name="dispositif" value="${dispositif.id}">
+                                        <td>
+                                            <c:if test="${dispositif.id !=null}">
+                                                <a href="../mvc/Modele">Voir</a>
+                                        </c:if>
+                                        </td>
+                                        </form>
+				</tr>
+			</c:forEach>
+		</table>
+
+
+    
+
+    <%-- <table border='1'>
         <tr><th>Nom</th><th>Description</th><th>Voir Dispositif</th></tr>
 
         <c:if test="${empty selected.dispositifCollection}">
@@ -47,7 +69,7 @@
                 <td><input type="submit" value="Voir Dispositif"></td>
             </tr>
         </c:forEach>
-    </table>
+    </table>--%>
     <hr>
     <a href="../index.html">Retour accueil</a>
 </body>

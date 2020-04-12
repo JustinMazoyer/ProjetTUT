@@ -38,7 +38,7 @@ public class ModeleController {
         //Modele modele;
         
 	 @GET
-    public void dispositif(@QueryParam("nom") String idDispositif) {
+    public void dispositif(@QueryParam("id") Integer idDispositif) {
 
         final List<Dispositif> touslesDispositifs = facadeD.findAll();
         Dispositif dispositifChoisi;

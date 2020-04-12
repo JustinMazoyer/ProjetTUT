@@ -11,35 +11,16 @@
     </head>
 
     <body>
-        <h1>Choisissez un dispositif pour voir les différents modèles</h1>
-        <form> 	
-            <select name='id' onchange='this.form.submit()'>
 
-                <c:forEach var="dispositif" items="${dispositifs}">
-
-                    <option value='${dispositif.id}'
-
-                            <c:if test="${dispositif.id eq selected.id}">
-                                selected
-                            </c:if>
-                            >
-
-                        ${dispositif.nom}
-                    </option>
-                </c:forEach>
-            </select>
-            <input type='submit'>
-        </form>
-
-        <h2>Modeles appartenant aux dispositifs ${selected.nom}</h2>
+        <h2>Modeles appartenant aux dispositifs ${dispositif.getNom()}</h2>
         <table border='1'>
             <tr><th>Nom</th><th>Description</th></tr>
 
-            <c:if test="${empty selected.modeleCollection}">
+            <c:if test="${empty dispositif.modeleCollection}">
                 <tr><td colspan="3">Aucun modeles</td></tr>	
             </c:if>
 
-            <c:forEach var="modele" items="${selected.modeleCollection}">
+            <c:forEach var="modele" items="${dispositif.modeleCollection}">
                 <tr>
                     <td>${modele.nom}</td>
                     <td>${modele.description}</td>     

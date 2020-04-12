@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -39,6 +40,8 @@ public class RechercheDispositif {
     PathologieFacade pathologie;
     @Inject
     Models models;
+    @Inject // Les infos du joueur, Session scoped
+    private RechercheInfo resultat;
 
     @GET
     public void show() {
@@ -47,16 +50,18 @@ public class RechercheDispositif {
 
     @POST
     @ValidateOnExecution(type = ExecutableType.ALL)
-    public String login(@Valid @BeanParam DispositifForm formData) {
+    public String login(@FormParam("nom") String nom) {
+        Dispositif p = dispositif.ReferenceDispositif(nom);
         try {
-            Dispositif nomdispositif = dispositif.find(formData.getNom());
-            if(nomdispositif.getId().equals(null)){
-            }else{
-            return "redirect:/Dispositif";
+            if (p != null) {
+                resultat.login(p.getId());
+                return "redirect:/ResultatRecherche";
+            } else {
+                models.put("databaseErrorMessage", "Ce dispositif n'existe pas");
             }
         } catch (Exception e) {
             models.put("databaseErrorMessage", "Ce dispositif n'existe pas");
         }
-        return null;  
+        return null;
     }
 }

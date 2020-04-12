@@ -29,11 +29,10 @@ public class DispositifFacade extends AbstractFacade<Dispositif> {
     public DispositifFacade() {
         super(Dispositif.class);
     }
-    public Dispositif ReferenceDispositif(Integer ref) {
-        List<Dispositif> liste = em.createNamedQuery("Dispositif.findById").setParameter("id", ref).getResultList();
-        if (!liste.isEmpty()) {
-            return (Dispositif) liste.get(0);
-        }
-        return null;
-    }
+    	public Dispositif ReferenceDispositif(String nomdispositif){
+            List<Dispositif> liste = em.createNamedQuery("Dispositif.findByNom").setParameter("nom", nomdispositif).getResultList();
+            if(!liste.isEmpty())
+                return (Dispositif) liste.get(0);
+            return null;
+}
 }

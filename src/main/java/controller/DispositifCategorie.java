@@ -8,10 +8,7 @@ package controller;
 import Classe.dao.CategorieFacade;
 import Classe.dao.DispositifFacade;
 import Classe.entity.Categorie;
-import Classe.entity.DispoCat;
 import Classe.entity.Dispositif;
-import Classe.entity.LigneDispoCat;
-
 import java.util.List;
 import javax.inject.Inject;
 import javax.mvc.Controller;
@@ -37,13 +34,10 @@ public class DispositifCategorie {
 
     @Inject
     Models models;
-    
-    @Inject
-    DispoCat dispocat;
-    
-    
     @Inject
     DispositifFacade dispositif;
+    @Inject // Les infos du joueur, Session scoped
+    private RechercheInfo resultat;
 
     @GET
     public void dispositifParCategorie(@QueryParam("id") Integer idCategorie) {
@@ -60,18 +54,16 @@ public class DispositifCategorie {
         models.put("selected", categorieChoisie);
 
     }
-    
+
     @POST
-        public void voir(@FormParam("dispositif") Integer dispositifID, @FormParam("nom") String nom, @QueryParam("id") Integer codeCategorie) {
-        if (dispocat == null) {
-            dispocat = new DispoCat();
-        }
-        Dispositif d = dispositif.ReferenceDispositif(dispositifID);
+    public String voir(@FormParam("dispositif") String nomdispositif, @FormParam("nom") String nom, @QueryParam("id") Integer codeCategorie) {
+
+        Dispositif d = dispositif.ReferenceDispositif(nomdispositif);
         if (d != null) {
-            if (d.getNom() == nom) {
-                dispocat.addLigne(new LigneDispoCat(d, nom));
-            }
-        }
+
+            resultat.login(d.getId());
+            
+        
         final List<Categorie> touteslesCategories = facade.findAll();
 
         // On cherche la catégorie à partir de son code passé en paramètre
@@ -84,10 +76,11 @@ public class DispositifCategorie {
         {
             categorieChoisie = touteslesCategories.get(0);
         }
-        models.put("dispocat", dispocat);
         models.put("categories", touteslesCategories);
         models.put("selected", categorieChoisie);
-       
+        return "redirect:/ResultatRecherche";
+        }
+        return null;
+
     }
-    
 }

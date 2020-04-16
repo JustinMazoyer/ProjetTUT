@@ -129,7 +129,7 @@ public class SoumettreDispositif {
                 models.put("selected", categorieChoisie);
                 models.put("pathologies", touteslesPathologie);
                 models.put("select", pathologieChoisie);
-                return "redirect:../index.html";
+                return "redirect:/Recherche";
             } else {
                 Reference r = new Reference();
                 Modele m = new Modele();
@@ -154,7 +154,7 @@ public class SoumettreDispositif {
                 models.put("selected", categorieChoisie);
                 models.put("pathologies", touteslesPathologie);
                 models.put("select", pathologieChoisie);
-                return "redirect:../index.html";
+                return "redirect:/Recherche";
             }
         } else {
             models.put("databaseErrorMessage", "Ce modele existe déja");

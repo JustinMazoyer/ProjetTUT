@@ -10,11 +10,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dispositifs dans la catégorie DispositifCategorie</title>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
+        <title>Catégories</title>
     </head>
+
     <body>
-        <form> 	
-            <select name='id' onchange='this.form.submit()'>
+        <%@include file="menu.jsp" %>
+        
+        <div class="contenu">
+        <form>
+            <h2>Choix de la catégorie</h2>
+            <select class="liste" name='id' onchange='this.form.submit()'>
 
                 <c:forEach var="categorie" items="${categories}">
 
@@ -29,31 +36,31 @@
                     </option>
                 </c:forEach>
             </select>
-            <input type='submit'>
+            <%--<input type='submit'>--%>
         </form>
-        <h2>Dispositifs dans la catégorie ${selected.nom}</h2>
+        
+        <h1>Dispositifs dans la catégorie ${selected.nom}</h1>
 
-        <table border='1'>
+        <table class="Tableau" border='1'>
             <tr><th>ID</th><th>Nom</th><th>Voir</th></tr>
                     <%-- Une ligne dans la table pour chaque produit --%>				
                     <c:forEach var="dispositif" items="${selected.dispositifCollection}">
                 <tr>
                     <td>${dispositif.id}</td>
                     <td>${dispositif.nom}</td> 		
-                <form method="POST" action="">
+               <form method="POST" action="">
                     <input type="hidden" name="dispositif" value="${dispositif.nom}">
                     <td>
                         <c:if test="${dispositif.nom !=null}">
                               <input type="submit" value="Voir">
                         </c:if>
                     </td>
-                </form>
+               </form>
             </tr>
         </c:forEach>
     </table>
 
-
-
+        </div>
 
     <%-- <table border='1'>
         <tr><th>Nom</th><th>Description</th><th>Voir Dispositif</th></tr>
@@ -70,8 +77,6 @@
             </tr>
         </c:forEach>
     </table>--%>
-    <hr>
-    <a href="../index.html">Retour accueil</a>
 </body>
 
 </html>

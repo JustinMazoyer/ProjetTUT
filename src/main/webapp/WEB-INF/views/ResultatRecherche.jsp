@@ -7,13 +7,27 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Affiche tous les modeles</title>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
+        <title>Résultat</title>
     </head>
 
     <body>
-
-        <h2>Modeles appartenant aux dispositifs ${dispositif.getNom()}</h2>
-        <table border='1'>
+        <%@include file="menu.jsp" %>
+        
+        <h1>${dispositif.nom}</h1>
+        
+        <div class="definition">
+        <p>${dispositif.description}</p>
+        </div>
+        
+        <div class="ImageDispositif">
+        <img src=${dispositif.urlPhoto}>
+        </div>
+        
+        <h2>Liste des modèles appartenant aux dispositifs ${dispositif.getNom()}</h2>
+        
+        <table class="Tableau" border='1'>
             <tr><th>Nom</th><th>Description</th></tr>
 
             <c:if test="${empty dispositif.modeleCollection}">
@@ -28,8 +42,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <hr>
-        <a href="../index.html">Retour accueil</a>
+
     </body>
 
 </html>

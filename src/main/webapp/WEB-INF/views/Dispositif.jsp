@@ -6,13 +6,17 @@
 <html>
 
 <head>
-	<title>Affiche tous les dispositifs</title>
-</head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
+        <title>Dispositifs</title>
+    </head>
 
-<body>
+    <body>
+        <%@include file="menu.jsp" %>
 	<h1>Liste des dispositifs</h1>
 	
-	<table border='1'>
+	<table class="Tableau"  border='1'>
             <tr><th>Nom</th><th>Description</th></tr>
 		
 		<c:forEach var="dispositif" items="${dispositifs}">
@@ -25,9 +29,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-         <a href="Modele">Pour voir tous les modeles cliquez ici</a>
-         <hr>
-<a href="../index.html">Retour accueil</a>
+    <div class="lienModele">
+         <a href="Modele">Pour voir tous les modèles cliquez ici</a>
+    </div>
 </body>
 
 </html>

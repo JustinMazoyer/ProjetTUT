@@ -7,12 +7,15 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Affiche tous les modeles</title>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
+        <title>Dispositifs</title>
     </head>
 
     <body>
+        <%@include file="menu.jsp" %>
         <h1>Liste de tous les modèles proposés</h1>
-     <table border='1'>
+     <table class="Tableau" border='1'>
 		<tr><th>ID</th><th>Nom</th><th>Description</th></tr>
 		<%-- Pour chaque produit, une ligne dans la table HTML --%>
 		<c:forEach var="modele" items="${modeles}">
@@ -25,8 +28,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-        <hr>
-        <a href="../index.html">Retour accueil</a>
     </body>
 
 </html>

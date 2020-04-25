@@ -3,6 +3,7 @@
             <li><a href="Recherche">Accueil</a></li>
             <li><a href="Dispositif">Dispositifs</a></li>
             <li><a href="DispositifCategorie">Catégories</a></li>
+            <li><a href="DispositifPathologie">Pathologies</a></li>
             <li><a href="../FAQ.html">Questions</a></li>
             <li><a href="SoumettreDispositif">Suggestion</a></li>
         </ul>

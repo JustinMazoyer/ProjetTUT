@@ -154,7 +154,7 @@ public class SoumettreDispositif {
                 models.put("selected", categorieChoisie);
                 models.put("pathologies", touteslesPathologie);
                 models.put("select", pathologieChoisie);
-                return "redirect:/Recherche";
+                return "redirect:/Validation";
             }
         } else {
             models.put("databaseErrorMessage", "Ce modele existe déja");
